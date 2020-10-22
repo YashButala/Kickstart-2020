@@ -1,0 +1,81 @@
+//F1
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define pb push_back
+
+int main(){
+	ll t;
+	cin>>t;
+	for(ll i=0;i<t;i++){
+		ll n,x;
+		cin>>n>>x;
+		set<pair<ll,ll>> q;
+		vector<ll> ret;
+		for(ll j=0;j<n;j++){
+			ll la;
+			cin>>la;
+			la = (la-1)/x;
+			q.insert(make_pair(la, j+1));
+		}
+		// set<pair<ll,ll>> :: iterator = it;
+		while(!q.empty()){
+			pair<ll,ll> p = *q.begin();
+			ret.pb(p.second);
+			q.erase(p);
+		}
+
+		cout<<"Case #"<<i+1<<": ";
+		for(ll j=0;j<n;j++){
+			cout<<ret[j]<<" ";
+		}
+		cout<<endl;
+	}
+
+
+	return 0;
+}
+
+
+//F2
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define pb push_back
+#define mp make_pair
+
+int main(){
+	ll t;
+	cin>>t;
+	for(ll i=0;i<t;i++){
+		ll n,k;
+		cin>>n>>k;
+		set<pair<ll,ll>> s;
+		for(ll j=0;j<n;j++){
+			ll s1,e;
+			cin>>s1>>e;
+			s.insert(mp(s1,e));
+		}
+		pair<ll,ll> p = *s.begin();
+		ll count=0;
+		while(!s.empty()){
+			ll this_diff = p.second - p.first;
+			if(this_diff%k==0){
+				this_diff--;
+			}
+
+			ll next = p.first + (((this_diff/k)  +  1)*k);
+			count+=((this_diff/k)  +  1);
+			while(next>=p.second && !s.empty()){
+				s.erase(p);
+				p=*s.begin();
+			}
+			p.first = max(p.first, next);
+			// cout<<count<<endl;
+		}
+		cout<<"Case #"<<i+1<<": "<<count<<endl;
+	}
+
+
+	return 0;
+}
